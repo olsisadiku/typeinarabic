@@ -17,25 +17,25 @@
         <main>
             <div class="game-info">
                 <div class="stats">
-                    <div class="stat">
+                    <div class="stat" title="Percentage of characters typed correctly in current session">
                         <span class="stat-label">Accuracy</span>
                         <span class="stat-value" id="accuracy">100%</span>
                     </div>
-                    <div class="stat">
+                    <div class="stat" title="Words per minute - your current typing speed">
                         <span class="stat-label">WPM</span>
                         <span class="stat-value" id="wpm">0</span>
                     </div>
-                    <div class="stat">
+                    <div class="stat" title="Number of consecutive sentences completed with 90%+ accuracy">
                         <span class="stat-label">Streak</span>
                         <span class="stat-value" id="streak">0</span>
                     </div>
-                    <div class="stat">
+                    <div class="stat" title="Your current level - unlocks more complex letters as you progress">
                         <span class="stat-label">Level</span>
                         <span class="stat-value" id="level">1</span>
                     </div>
                 </div>
                 
-                <div class="progress-section">
+                <div class="progress-section" title="Type correct characters to advance to the next level and unlock new letters">
                     <div class="progress-label">Progress to Next Level</div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="progressFill"></div>
@@ -45,7 +45,7 @@
             </div>
             
             <div class="typing-area">
-                <div class="text-display" id="textDisplay" dir="rtl">
+                <div class="text-display" id="textDisplay" dir="rtl" title="Type the Arabic text shown here. Green = correct, Red = incorrect">
                     <!-- Arabic text will be generated here -->
                 </div>
                 
@@ -56,17 +56,122 @@
                     autocomplete="off"
                     spellcheck="false"
                     dir="rtl"
+                    title="Type the Arabic characters here. Each letter will turn green if correct or red if incorrect"
                 ></textarea>
             </div>
             
-            <div class="achievements" id="achievements">
-                <!-- Achievement notifications will appear here -->
+            <!-- Arabic Keyboard -->
+            <div class="keyboard-section" id="keyboardSection">
+                <div class="keyboard-label">Arabic Keyboard Layout</div>
+                <div class="keyboard-instruction">
+                    💡 <strong>Pro Tip:</strong> Click the keys below to type Arabic characters directly
+                </div>
+                <div id="arabicKeyboard" class="arabic-keyboard">
+                    <!-- First Row -->
+                    <div class="keyboard-row">
+                        <button class="key" data-key="`" data-arabic="ذ">ذ</button>
+                        <button class="key" data-key="1" data-arabic="١">١</button>
+                        <button class="key" data-key="2" data-arabic="٢">٢</button>
+                        <button class="key" data-key="3" data-arabic="٣">٣</button>
+                        <button class="key" data-key="4" data-arabic="٤">٤</button>
+                        <button class="key" data-key="5" data-arabic="٥">٥</button>
+                        <button class="key" data-key="6" data-arabic="٦">٦</button>
+                        <button class="key" data-key="7" data-arabic="٧">٧</button>
+                        <button class="key" data-key="8" data-arabic="٨">٨</button>
+                        <button class="key" data-key="9" data-arabic="٩">٩</button>
+                        <button class="key" data-key="0" data-arabic="٠">٠</button>
+                        <button class="key" data-key="-" data-arabic="-">-</button>
+                        <button class="key" data-key="=" data-arabic="=">=</button>
+                        <button class="key wide" id="backspace">⌫ Backspace</button>
+                    </div>
+
+                    <!-- Second Row -->
+                    <div class="keyboard-row">
+                        <button class="key wide" id="tab">⇥ Tab</button>
+                        <button class="key" data-key="q" data-arabic="ض">ض</button>
+                        <button class="key" data-key="w" data-arabic="ص">ص</button>
+                        <button class="key" data-key="e" data-arabic="ث">ث</button>
+                        <button class="key" data-key="r" data-arabic="ق">ق</button>
+                        <button class="key" data-key="t" data-arabic="ف">ف</button>
+                        <button class="key" data-key="y" data-arabic="غ">غ</button>
+                        <button class="key" data-key="u" data-arabic="ع">ع</button>
+                        <button class="key" data-key="i" data-arabic="ه">ه</button>
+                        <button class="key" data-key="o" data-arabic="خ">خ</button>
+                        <button class="key" data-key="p" data-arabic="ح">ح</button>
+                        <button class="key" data-key="[" data-arabic="ج">ج</button>
+                        <button class="key" data-key="]" data-arabic="د">د</button>
+                        <button class="key" data-key="\\" data-arabic="\\">\\ </button>
+                    </div>
+
+                    <!-- Third Row -->
+                    <div class="keyboard-row">
+                        <button class="key wide" id="caps">⇪ Caps</button>
+                        <button class="key" data-key="a" data-arabic="ش">ش</button>
+                        <button class="key" data-key="s" data-arabic="س">س</button>
+                        <button class="key" data-key="d" data-arabic="ي">ي</button>
+                        <button class="key" data-key="f" data-arabic="ب">ب</button>
+                        <button class="key" data-key="g" data-arabic="ل">ل</button>
+                        <button class="key" data-key="h" data-arabic="ا">ا</button>
+                        <button class="key" data-key="j" data-arabic="ت">ت</button>
+                        <button class="key" data-key="k" data-arabic="ن">ن</button>
+                        <button class="key" data-key="l" data-arabic="م">م</button>
+                        <button class="key" data-key=";" data-arabic="ك">ك</button>
+                        <button class="key" data-key="'" data-arabic="ط">ط</button>
+                        <button class="key wide" id="enter">⏎ Enter</button>
+                    </div>
+
+                    <!-- Fourth Row -->
+                    <div class="keyboard-row">
+                        <button class="key wider" id="shift">⇧ Shift</button>
+                        <button class="key" data-key="z" data-arabic="ئ">ئ</button>
+                        <button class="key" data-key="x" data-arabic="ء">ء</button>
+                        <button class="key" data-key="c" data-arabic="ؤ">ؤ</button>
+                        <button class="key" data-key="v" data-arabic="ر">ر</button>
+                        <button class="key" data-key="b" data-arabic="لا">لا</button>
+                        <button class="key" data-key="n" data-arabic="ى">ى</button>
+                        <button class="key" data-key="m" data-arabic="ة">ة</button>
+                        <button class="key" data-key="," data-arabic="و">و</button>
+                        <button class="key" data-key="." data-arabic="ز">ز</button>
+                        <button class="key" data-key="/" data-arabic="ظ">ظ</button>
+                        <button class="key wider" id="shift-right">⇧ Shift</button>
+                    </div>
+
+                    <!-- Fifth Row -->
+                    <div class="keyboard-row">
+                        <button class="key" id="ctrl">Ctrl</button>
+                        <button class="key" id="alt">Alt</button>
+                        <button class="key spacebar" data-key=" " data-arabic=" ">مسافة - Space</button>
+                        <button class="key" id="alt-right">Alt</button>
+                        <button class="key" id="ctrl-right">Ctrl</button>
+                    </div>
+
+                    <!-- Tashkeel Row -->
+                    <div class="keyboard-row tashkeel-row">
+                        <span class="tashkeel-label">Tashkeel (Diacritics):</span>
+                        <button class="key tashkeel" data-arabic="َ">َ</button>
+                        <button class="key tashkeel" data-arabic="ً">ً</button>
+                        <button class="key tashkeel" data-arabic="ُ">ُ</button>
+                        <button class="key tashkeel" data-arabic="ٌ">ٌ</button>
+                        <button class="key tashkeel" data-arabic="ّ">ّ</button>
+                        <button class="key tashkeel" data-arabic="ْ">ْ</button>
+                        <button class="key tashkeel" data-arabic="ِ">ِ</button>
+                        <button class="key tashkeel" data-arabic="ٍ">ٍ</button>
+                    </div>
+                </div>
             </div>
             
-            <div class="controls">
-                <button id="newSentence" class="btn btn-primary">New Sentence</button>
-                <button id="skipSentence" class="btn btn-secondary">Skip</button>
-                <button id="reset" class="btn btn-secondary">Reset Stats</button>
+            <div class="bottom-section">
+                <div class="achievements" id="achievements">
+                    <!-- Achievement notifications will appear here -->
+                </div>
+                
+                <div class="controls">
+                    <button id="newSentence" class="btn btn-primary" title="Generate a new random Arabic sentence to practice">New Sentence</button>
+                    <button id="skipSentence" class="btn btn-secondary" title="Skip current sentence (breaks your streak)">Skip</button>
+                    <button id="reset" class="btn btn-secondary" title="Reset all progress including level and streak">Reset Stats</button>
+                    <button id="toggleKeyboard" class="btn btn-secondary" title="Hide/Show keyboard">Hide Keyboard</button>
+                    <button id="toggleArabicLetters" class="btn btn-secondary" title="Hide/Show Arabic letters on keys">Hide Arabic</button>
+                </div>
             </div>
         </main>
     </div>

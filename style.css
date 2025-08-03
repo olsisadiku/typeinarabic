@@ -7,56 +7,69 @@
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     direction: ltr;
     color: #333;
+    overflow: hidden;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 20px;
-    min-height: 100vh;
+    padding: 10px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    overflow: hidden;
 }
 
 header {
     text-align: center;
-    margin-bottom: 40px;
     color: white;
+    flex-shrink: 0;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
 }
 
 header h1 {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 header p {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     opacity: 0.9;
     direction: ltr;
+    margin-bottom: 0;
 }
 
 .game-info {
-    margin-bottom: 30px;
+    flex-shrink: 0;
 }
 
 .stats {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 15px;
+    margin-bottom: 15px;
     flex-wrap: wrap;
 }
 
 .progress-section {
     background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 12px;
+    padding: 12px;
+    border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
 }
@@ -91,44 +104,44 @@ header p {
 
 .stat {
     background: rgba(255, 255, 255, 0.95);
-    padding: 12px 20px;
-    border-radius: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    min-width: 80px;
+    min-width: 60px;
 }
 
 .stat-label {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: #666;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .stat-value {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #333;
 }
 
 .typing-area {
     background: white;
-    border-radius: 15px;
-    padding: 30px;
-    margin-bottom: 30px;
+    border-radius: 10px;
+    padding: 15px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    flex-shrink: 0;
 }
 
 .text-display {
     font-family: 'Noto Sans Arabic', Arial, sans-serif;
-    font-size: 1.8rem;
-    line-height: 2;
-    margin-bottom: 25px;
-    padding: 20px;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    padding: 12px;
     background: #f8f9fa;
-    border-radius: 10px;
-    min-height: 100px;
+    border-radius: 6px;
+    min-height: 60px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -178,21 +191,26 @@ header p {
     75% { transform: translateX(2px); }
 }
 
+.bottom-section {
+    flex-shrink: 0;
+}
+
 .achievements {
-    margin: 20px 0;
-    min-height: 40px;
+    min-height: 25px;
+    margin-bottom: 10px;
 }
 
 .achievement {
     background: linear-gradient(135deg, #ffd700, #ffed4e);
     color: #333;
-    padding: 10px 20px;
-    border-radius: 25px;
-    margin: 5px;
+    padding: 6px 12px;
+    border-radius: 15px;
+    margin: 3px;
     display: inline-block;
     animation: slideIn 0.5s ease-out;
     box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     font-weight: 600;
+    font-size: 0.8rem;
 }
 
 @keyframes slideIn {
@@ -208,15 +226,15 @@ header p {
 
 .typing-input {
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-family: 'Noto Sans Arabic', Arial, sans-serif;
-    padding: 15px;
+    padding: 10px;
     border: 2px solid #e9ecef;
-    border-radius: 10px;
+    border-radius: 6px;
     outline: none;
     transition: border-color 0.3s ease;
     resize: none;
-    min-height: 60px;
+    min-height: 45px;
     direction: rtl;
     background: #ffffff;
 }
@@ -229,16 +247,16 @@ header p {
 .controls {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
 .btn {
-    padding: 12px 30px;
-    font-size: 1rem;
+    padding: 8px 16px;
+    font-size: 0.8rem;
     font-family: 'Noto Sans Arabic', Arial, sans-serif;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 500;
@@ -264,6 +282,338 @@ header p {
     background: #545b62;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(108,117,125,0.3);
+}
+
+/* Arabic Keyboard Styles */
+.keyboard-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.keyboard-label {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.keyboard-instruction {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #666;
+    background: #f8f9fa;
+    padding: 4px 10px;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    border-left: 3px solid #007bff;
+}
+
+.arabic-keyboard {
+    background: #f8f9fa;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-bottom: 3px;
+    flex-wrap: wrap;
+}
+
+.keyboard-row:last-child {
+    margin-bottom: 0;
+}
+
+.key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    min-height: 28px;
+    padding: 4px 6px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Noto Sans Arabic', Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #007bff;
+    transition: all 0.2s ease;
+}
+
+.key:hover {
+    background: #f0f0f0;
+    border-color: #999;
+}
+
+.key:active, .key.active {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+
+/* Key size variations */
+.key.wide {
+    min-width: 45px;
+    font-size: 0.7rem;
+}
+
+.key.wider {
+    min-width: 55px;
+    font-size: 0.7rem;
+}
+
+.key.spacebar {
+    min-width: 140px;
+    font-size: 0.7rem;
+    flex-direction: row;
+}
+
+/* Tashkeel row */
+.tashkeel-row {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+    align-items: center;
+}
+
+.tashkeel-label {
+    color: #666;
+    font-size: 0.7rem;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.key.tashkeel {
+    min-width: 25px;
+    min-height: 25px;
+    font-size: 0.9rem;
+    background: #fff3cd;
+    border-color: #ffeaa7;
+}
+
+.key.tashkeel:hover {
+    background: #ffeaa7;
+    border-color: #fdcb6e;
+}
+
+.key.tashkeel:active,
+.key.tashkeel.active {
+    background: #fdcb6e;
+    color: #333;
+    border-color: #e17055;
+}
+
+/* Special keys styling */
+#backspace, #tab, #caps, #enter, #shift, #shift-right {
+    background: #e9ecef;
+    color: #333;
+    font-weight: 600;
+    border-color: #adb5bd;
+    font-size: 0.6rem;
+}
+
+#backspace:hover, #tab:hover, #caps:hover, #enter:hover, #shift:hover, #shift-right:hover {
+    background: #dee2e6;
+    border-color: #6c757d;
+}
+
+#ctrl, #alt, #ctrl-right, #alt-right {
+    background: #f8f9fa;
+    color: #333;
+    font-size: 0.6rem;
+    min-width: 35px;
+    border-color: #dee2e6;
+}
+
+/* MacBook Pro 13" optimization */
+@media (max-height: 900px) and (max-width: 1440px) {
+    .container {
+        padding: 5px;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 3px;
+    }
+    
+    header p {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+    }
+    
+    .stats {
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+    
+    .stat {
+        padding: 6px 10px;
+        min-width: 50px;
+    }
+    
+    .stat-label {
+        font-size: 0.6rem;
+        margin-bottom: 2px;
+    }
+    
+    .stat-value {
+        font-size: 1rem;
+    }
+    
+    .progress-section {
+        padding: 8px;
+    }
+    
+    .typing-area {
+        padding: 10px;
+    }
+    
+    .text-display {
+        font-size: 1.2rem;
+        padding: 8px;
+        margin-bottom: 8px;
+        min-height: 40px;
+        line-height: 1.4;
+    }
+    
+    .typing-input {
+        font-size: 1rem;
+        padding: 8px;
+        min-height: 32px;
+    }
+    
+    .keyboard-section {
+        padding: 6px;
+    }
+    
+    .keyboard-label {
+        font-size: 0.8rem;
+        margin-bottom: 3px;
+    }
+    
+    .keyboard-instruction {
+        font-size: 0.6rem;
+        padding: 3px 8px;
+        margin-bottom: 5px;
+    }
+    
+    .arabic-keyboard {
+        padding: 5px;
+    }
+    
+    .keyboard-row {
+        gap: 1px;
+        margin-bottom: 2px;
+    }
+    
+    .key {
+        min-width: 24px;
+        min-height: 24px;
+        font-size: 0.8rem;
+        padding: 2px 4px;
+    }
+    
+    .key.wide {
+        min-width: 38px;
+        font-size: 0.6rem;
+    }
+    
+    .key.wider {
+        min-width: 48px;
+        font-size: 0.6rem;
+    }
+    
+    .key.spacebar {
+        min-width: 110px;
+        font-size: 0.6rem;
+    }
+    
+    .key.tashkeel {
+        min-width: 20px;
+        min-height: 20px;
+        font-size: 0.7rem;
+    }
+    
+    .tashkeel-row {
+        margin-top: 4px;
+        padding-top: 4px;
+    }
+    
+    .tashkeel-label {
+        font-size: 0.6rem;
+        margin-right: 8px;
+    }
+    
+    .btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .controls {
+        gap: 5px;
+    }
+    
+    .achievements {
+        min-height: 18px;
+        margin-bottom: 5px;
+    }
+    
+    .achievement {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        margin: 2px;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .arabic-keyboard {
+        padding: 10px;
+    }
+    
+    .key {
+        min-width: 35px;
+        min-height: 35px;
+        padding: 4px 6px;
+        font-size: 0.7rem;
+    }
+    
+    .key-arabic {
+        font-size: 1rem;
+    }
+    
+    .key-english {
+        font-size: 0.6rem;
+    }
+    
+    .key.wide {
+        min-width: 50px;
+    }
+    
+    .key.wider {
+        min-width: 65px;
+    }
+    
+    .key.spacebar {
+        min-width: 150px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -292,4 +642,5 @@ header p {
         padding: 10px 15px;
         min-width: 80px;
     }
+    
 }

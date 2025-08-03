@@ -21,6 +21,9 @@ class ArabicTypingGame {
             ['س', 'ر', 'ي', 'ع'], // سريع
         ];
         
+        // Arabic numbers
+        this.arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        
         this.currentSentence = '';
         this.currentIndex = 0;
         this.startTime = null;
@@ -29,14 +32,14 @@ class ArabicTypingGame {
         this.timer = null;
         
         // Game state
-        this.level = 1;
-        this.streak = 0;
+        this.currentLevel = 1;
+        this.currentStreak = 0;
         this.totalCharactersTyped = 0;
         this.correctCharacters = 0;
-        this.achievements = [];
         
         this.initializeElements();
         this.setupEventListeners();
+        this.setupKeyboard();
         this.generateNewSentence();
         this.loadGameState();
     }
@@ -46,14 +49,18 @@ class ArabicTypingGame {
         this.userInput = document.getElementById('userInput');
         this.accuracy = document.getElementById('accuracy');
         this.wpm = document.getElementById('wpm');
-        this.streak = document.getElementById('streak');
-        this.level = document.getElementById('level');
+        this.streakElement = document.getElementById('streak');
+        this.levelElement = document.getElementById('level');
         this.progressFill = document.getElementById('progressFill');
         this.progressText = document.getElementById('progressText');
         this.achievements = document.getElementById('achievements');
         this.newSentenceBtn = document.getElementById('newSentence');
         this.skipSentenceBtn = document.getElementById('skipSentence');
         this.resetBtn = document.getElementById('reset');
+        this.toggleKeyboardBtn = document.getElementById('toggleKeyboard');
+        this.toggleArabicLettersBtn = document.getElementById('toggleArabicLetters');
+        this.arabicKeyboard = document.getElementById('arabicKeyboard');
+        this.keyboardSection = document.getElementById('keyboardSection');
     }
     
     setupEventListeners() {
@@ -62,7 +69,181 @@ class ArabicTypingGame {
         this.newSentenceBtn.addEventListener('click', () => this.generateNewSentence());
         this.skipSentenceBtn.addEventListener('click', () => this.skipSentence());
         this.resetBtn.addEventListener('click', () => this.resetGameState());
+        this.toggleKeyboardBtn.addEventListener('click', () => this.toggleKeyboard());
+        this.toggleArabicLettersBtn.addEventListener('click', () => this.toggleArabicLetters());
     }
+    
+    setupKeyboard() {
+        // Setup key mapping for English to Arabic conversion
+        this.keyMapping = {
+            '`': 'ذ', '1': '١', '2': '٢', '3': '٣', '4': '٤', '5': '٥',
+            '6': '٦', '7': '٧', '8': '٨', '9': '٩', '0': '٠', '-': '-', '=': '=',
+            'q': 'ض', 'w': 'ص', 'e': 'ث', 'r': 'ق', 't': 'ف',
+            'y': 'غ', 'u': 'ع', 'i': 'ه', 'o': 'خ', 'p': 'ح',
+            '[': 'ج', ']': 'د', '\\': '\\',
+            'a': 'ش', 's': 'س', 'd': 'ي', 'f': 'ب', 'g': 'ل',
+            'h': 'ا', 'j': 'ت', 'k': 'ن', 'l': 'م', ';': 'ك', "'": 'ط',
+            'z': 'ئ', 'x': 'ء', 'c': 'ؤ', 'v': 'ر', 'b': 'لا',
+            'n': 'ى', 'm': 'ة', ',': 'و', '.': 'ز', '/': 'ظ',
+            ' ': ' '
+        };
+
+        // Setup click handlers for all keyboard keys
+        const keys = this.arabicKeyboard.querySelectorAll('.key[data-arabic]');
+        keys.forEach(key => {
+            key.addEventListener('click', () => {
+                const arabicChar = key.getAttribute('data-arabic');
+                if (arabicChar) {
+                    this.typeCharacter(arabicChar);
+                }
+            });
+        });
+
+        // Setup special key handlers
+        const backspaceKey = document.getElementById('backspace');
+        if (backspaceKey) {
+            backspaceKey.addEventListener('click', () => {
+                this.handleBackspace();
+            });
+        }
+
+        const enterKey = document.getElementById('enter');
+        if (enterKey) {
+            enterKey.addEventListener('click', () => {
+                this.handleEnter();
+            });
+        }
+
+        // Setup physical keyboard handling
+        document.addEventListener('keydown', (e) => this.handlePhysicalKeyDown(e));
+    }
+    
+    typeCharacter(char) {
+        // Insert character at current cursor position
+        const input = this.userInput;
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const currentValue = input.value;
+        
+        input.value = currentValue.substring(0, start) + char + currentValue.substring(end);
+        input.selectionStart = input.selectionEnd = start + char.length;
+        input.focus();
+        
+        // Trigger input event to update the game state
+        input.dispatchEvent(new Event('input'));
+    }
+    
+    handleBackspace() {
+        const input = this.userInput;
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const currentValue = input.value;
+        
+        if (start === end && start > 0) {
+            // Delete one character before cursor
+            input.value = currentValue.substring(0, start - 1) + currentValue.substring(start);
+            input.selectionStart = input.selectionEnd = start - 1;
+        } else if (start !== end) {
+            // Delete selected text
+            input.value = currentValue.substring(0, start) + currentValue.substring(end);
+            input.selectionStart = input.selectionEnd = start;
+        }
+        
+        input.focus();
+        input.dispatchEvent(new Event('input'));
+    }
+    
+    handleEnter() {
+        // Check if current sentence is complete
+        if (this.userInput.value === this.currentSentence) {
+            this.completeSentence();
+        } else {
+            // Generate new sentence
+            this.generateNewSentence();
+        }
+    }
+    
+    handlePhysicalKeyDown(e) {
+        // Auto-convert English keyboard input to Arabic
+        if (this.keyMapping && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            let keyToMap = e.key.toLowerCase();
+            
+            // Handle special cases
+            if (keyToMap === ' ') {
+                keyToMap = ' ';
+            }
+            
+            const arabicChar = this.keyMapping[keyToMap];
+            
+            if (arabicChar && keyToMap !== 'backspace' && keyToMap !== 'enter') {
+                e.preventDefault();
+                this.typeCharacter(arabicChar);
+                this.highlightKey(keyToMap);
+                return;
+            }
+        }
+        
+        // Handle special keys
+        if (e.key === 'Backspace') {
+            // Let the default backspace behavior happen, but also highlight the key
+            this.highlightKey('backspace');
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            this.handleEnter();
+            this.highlightKey('enter');
+        }
+    }
+    
+    highlightKey(keyValue) {
+        // Remove previous highlighting
+        const allKeys = this.arabicKeyboard.querySelectorAll('.key');
+        allKeys.forEach(key => key.classList.remove('active'));
+        
+        // Find and highlight the corresponding key
+        let targetKey = null;
+        
+        if (keyValue === 'backspace') {
+            targetKey = document.getElementById('backspace');
+        } else if (keyValue === 'enter') {
+            targetKey = document.getElementById('enter');
+        } else {
+            targetKey = this.arabicKeyboard.querySelector(`[data-key="${keyValue}"]`);
+        }
+        
+        if (targetKey) {
+            targetKey.classList.add('active');
+            // Remove highlighting after a short delay
+            setTimeout(() => {
+                targetKey.classList.remove('active');
+            }, 200);
+        }
+    }
+    
+    highlightNextKey() {
+        // Remove previous highlighting
+        const allKeys = this.arabicKeyboard.querySelectorAll('.key');
+        allKeys.forEach(key => key.classList.remove('active'));
+        
+        // Highlight the next key to press
+        if (this.currentIndex < this.currentSentence.length) {
+            const nextChar = this.currentSentence[this.currentIndex];
+            
+            // Find the English key that maps to this Arabic character
+            let englishKey = Object.keys(this.keyMapping).find(key => this.keyMapping[key] === nextChar);
+            
+            if (englishKey) {
+                const targetKey = this.arabicKeyboard.querySelector(`[data-key="${englishKey}"]`);
+                if (targetKey) {
+                    targetKey.classList.add('active');
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
     
     generateNewSentence() {
         this.currentSentence = this.createRandomSentence();
@@ -75,7 +256,12 @@ class ArabicTypingGame {
         const words = [];
         
         for (let i = 0; i < sentenceLength; i++) {
-            words.push(this.generateWord());
+            // 20% chance to add a number word
+            if (Math.random() < 0.2) {
+                words.push(this.generateNumberWord());
+            } else {
+                words.push(this.generateWord());
+            }
         }
         
         return words.join(' ');
@@ -108,6 +294,19 @@ class ArabicTypingGame {
         }
         
         return word;
+    }
+    
+    generateNumberWord() {
+        // Generate a number with 1-3 digits
+        const digits = Math.floor(Math.random() * 3) + 1;
+        let numberWord = '';
+        
+        for (let i = 0; i < digits; i++) {
+            const digit = Math.floor(Math.random() * 10);
+            numberWord += this.arabicNumbers[digit];
+        }
+        
+        return numberWord;
     }
     
     displayText() {
@@ -150,6 +349,9 @@ class ArabicTypingGame {
                 globalIndex++;
             }
         });
+        
+        // Highlight the first key
+        this.highlightNextKey();
     }
     
     handleInput() {
@@ -164,6 +366,9 @@ class ArabicTypingGame {
         this.updateDisplay();
         this.updateStats();
         
+        // Highlight the next key
+        this.highlightNextKey();
+        
         if (inputValue === this.currentSentence) {
             this.completeSentence();
         }
@@ -172,7 +377,9 @@ class ArabicTypingGame {
     handleKeyDown(e) {
         if (e.key === 'Enter' && e.ctrlKey) {
             this.generateNewSentence();
+            return;
         }
+        
     }
     
     checkInput(inputValue) {
@@ -203,7 +410,15 @@ class ArabicTypingGame {
     }
     
     updateDisplay() {
-        this.displayText();
+        // Don't regenerate the entire display - just update the current letter position
+        const letters = this.textDisplay.querySelectorAll('.letter');
+        letters.forEach((letter, index) => {
+            if (index === this.currentIndex) {
+                letter.classList.add('current');
+            } else {
+                letter.classList.remove('current');
+            }
+        });
     }
     
     startGame() {
@@ -214,7 +429,7 @@ class ArabicTypingGame {
     
     updateTimer() {
         const elapsed = (Date.now() - this.startTime) / 1000;
-        this.timerDisplay.textContent = `${elapsed.toFixed(1)}s`;
+        // Timer display not implemented yet - can be added later
     }
     
     updateStats() {
@@ -275,8 +490,8 @@ class ArabicTypingGame {
         
         this.progressFill.style.width = `${Math.min(progress, 100)}%`;
         this.progressText.textContent = `${this.correctCharacters} / ${charactersNeeded} characters`;
-        this.level.textContent = this.currentLevel;
-        this.streak.textContent = this.currentStreak;
+        this.levelElement.textContent = this.currentLevel;
+        this.streakElement.textContent = this.currentStreak;
     }
     
     checkAchievements() {
@@ -357,6 +572,33 @@ class ArabicTypingGame {
         }
         
         this.updateProgressDisplay();
+    }
+    
+    toggleKeyboard() {
+        const isHidden = this.keyboardSection.style.display === 'none';
+        
+        if (isHidden) {
+            this.keyboardSection.style.display = 'block';
+            this.toggleKeyboardBtn.textContent = 'Hide Keyboard';
+        } else {
+            this.keyboardSection.style.display = 'none';
+            this.toggleKeyboardBtn.textContent = 'Show Keyboard';
+        }
+    }
+    
+    toggleArabicLetters() {
+        const arabicKeys = this.arabicKeyboard.querySelectorAll('.key[data-arabic]');
+        const isHidden = arabicKeys[0]?.style.color === 'transparent';
+        
+        arabicKeys.forEach(key => {
+            if (isHidden) {
+                key.style.color = '#007bff';
+                this.toggleArabicLettersBtn.textContent = 'Hide Arabic';
+            } else {
+                key.style.color = 'transparent';
+                this.toggleArabicLettersBtn.textContent = 'Show Arabic';
+            }
+        });
     }
 }
 
