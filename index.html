@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Typing Practice</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>تدريب الكتابة بالعربية</h1>
+            <p>Arabic Typing Practice</p>
+        </header>
+        
+        <main>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value" id="accuracy">100%</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">WPM</span>
+                    <span class="stat-value" id="wpm">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Time</span>
+                    <span class="stat-value" id="timer">0s</span>
+                </div>
+            </div>
+            
+            <div class="typing-area">
+                <div class="text-display" id="textDisplay">
+                    <span class="current-word">مرحبا</span>
+                </div>
+                
+                <textarea 
+                    id="userInput" 
+                    class="typing-input" 
+                    placeholder="ابدأ الكتابة هنا..."
+                    autocomplete="off"
+                    spellcheck="false"
+                ></textarea>
+            </div>
+            
+            <div class="controls">
+                <button id="newSentence" class="btn btn-primary">جملة جديدة</button>
+                <button id="reset" class="btn btn-secondary">إعادة تشغيل</button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
