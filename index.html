@@ -64,6 +64,13 @@
                     <button id="skipSentence" class="btn btn-secondary" title="Skip current sentence (breaks your streak)">Skip</button>
                     <button id="reset" class="btn btn-secondary" title="Reset all progress including level and streak">Reset Stats</button>
                 </div>
+                
+                <div class="summary-config">
+                    <label for="summaryThreshold" class="config-label">
+                        Summary at <span id="thresholdDisplay">0/100</span> correct characters
+                    </label>
+                    <input type="range" id="summaryThreshold" class="threshold-slider" min="25" max="500" step="25" value="100" title="Set when typing summary appears">
+                </div>
             </div>
             
             <!-- Arabic Keyboard -->
@@ -76,8 +83,13 @@
                         </div>
                     </div>
                     <div class="keyboard-controls">
+                        <button id="toggleDrag" class="control-btn" title="Enable/Disable dragging">📌</button>
                         <button id="toggleKeyboard" class="control-btn" title="Hide/Show keyboard">Hide</button>
                         <button id="toggleArabicLetters" class="control-btn" title="Hide/Show Arabic letters on keys">ع/A</button>
+                        <div class="transparency-control" id="transparencyControl" style="display: none;">
+                            <label for="transparencySlider" class="transparency-label">Opacity</label>
+                            <input type="range" id="transparencySlider" class="transparency-slider" min="30" max="100" step="10" value="75" title="Adjust keyboard transparency">
+                        </div>
                     </div>
                 </div>
                 <div id="arabicKeyboard" class="arabic-keyboard">
