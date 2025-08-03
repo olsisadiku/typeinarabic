@@ -18,11 +18,10 @@ body {
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 15px;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     overflow: hidden;
 }
 
@@ -30,14 +29,15 @@ header {
     text-align: center;
     color: white;
     flex-shrink: 0;
+    margin-bottom: 10px;
 }
 
 main {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     min-height: 0;
+    overflow: hidden;
 }
 
 header h1 {
@@ -56,6 +56,7 @@ header p {
 
 .game-info {
     flex-shrink: 0;
+    margin-bottom: 10px;
 }
 
 .stats {
@@ -128,23 +129,24 @@ header p {
 .typing-area {
     background: white;
     border-radius: 10px;
-    padding: 15px;
+    padding: 20px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     flex-shrink: 0;
+    margin-bottom: 15px;
 }
 
 .text-display {
     font-family: 'Noto Sans Arabic', Arial, sans-serif;
-    font-size: 1.4rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    padding: 12px;
+    font-size: 1.8rem;
+    line-height: 2.2;
+    margin-bottom: 20px;
+    padding: 20px;
     background: #f8f9fa;
-    border-radius: 6px;
-    min-height: 60px;
+    border-radius: 8px;
+    min-height: 120px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     user-select: none;
     direction: rtl;
 }
@@ -193,6 +195,7 @@ header p {
 
 .bottom-section {
     flex-shrink: 0;
+    margin-top: 10px;
 }
 
 .achievements {
@@ -226,15 +229,15 @@ header p {
 
 .typing-input {
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-family: 'Noto Sans Arabic', Arial, sans-serif;
-    padding: 10px;
+    padding: 15px;
     border: 2px solid #e9ecef;
-    border-radius: 6px;
+    border-radius: 8px;
     outline: none;
     transition: border-color 0.3s ease;
     resize: none;
-    min-height: 45px;
+    min-height: 60px;
     direction: rtl;
     background: #ffffff;
 }
@@ -242,6 +245,13 @@ header p {
 .typing-input:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+}
+
+.typing-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
 }
 
 .controls {
@@ -286,18 +296,30 @@ header p {
 
 /* Arabic Keyboard Styles */
 .keyboard-section {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
     flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 0;
+    overflow: hidden;
+}
+
+.keyboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.keyboard-title {
+    flex: 1;
 }
 
 .keyboard-label {
-    text-align: center;
     font-size: 0.9rem;
     font-weight: 600;
     color: #333;
@@ -305,32 +327,62 @@ header p {
 }
 
 .keyboard-instruction {
-    text-align: center;
     font-size: 0.7rem;
     color: #666;
     background: #f8f9fa;
     padding: 4px 10px;
     border-radius: 15px;
-    margin-bottom: 8px;
     border-left: 3px solid #007bff;
+}
+
+.keyboard-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.control-btn {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: #495057;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    min-width: 50px;
+}
+
+.control-btn:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+    color: #212529;
+}
+
+.control-btn:active {
+    background: #dee2e6;
+    border-color: #6c757d;
 }
 
 .arabic-keyboard {
     background: #f8f9fa;
-    padding: 8px;
-    border-radius: 6px;
+    padding: 15px;
+    border-radius: 10px;
     border: 1px solid #ddd;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .keyboard-row {
     display: flex;
     justify-content: center;
-    gap: 2px;
-    margin-bottom: 3px;
+    gap: 6px;
+    margin-bottom: 8px;
     flex-wrap: wrap;
 }
 
@@ -342,18 +394,19 @@ header p {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 28px;
-    min-height: 28px;
-    padding: 4px 6px;
+    min-width: 45px;
+    min-height: 45px;
+    padding: 8px 10px;
     background: white;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
     cursor: pointer;
     font-family: 'Noto Sans Arabic', Arial, sans-serif;
-    font-size: 0.9rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: #007bff;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .key:hover {
@@ -370,55 +423,21 @@ header p {
 
 /* Key size variations */
 .key.wide {
-    min-width: 45px;
-    font-size: 0.7rem;
+    min-width: 70px;
+    font-size: 0.9rem;
 }
 
 .key.wider {
-    min-width: 55px;
-    font-size: 0.7rem;
+    min-width: 85px;
+    font-size: 0.9rem;
 }
 
 .key.spacebar {
-    min-width: 140px;
-    font-size: 0.7rem;
+    min-width: 220px;
+    font-size: 0.9rem;
     flex-direction: row;
 }
 
-/* Tashkeel row */
-.tashkeel-row {
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid #ddd;
-    align-items: center;
-}
-
-.tashkeel-label {
-    color: #666;
-    font-size: 0.7rem;
-    margin-right: 10px;
-    white-space: nowrap;
-}
-
-.key.tashkeel {
-    min-width: 25px;
-    min-height: 25px;
-    font-size: 0.9rem;
-    background: #fff3cd;
-    border-color: #ffeaa7;
-}
-
-.key.tashkeel:hover {
-    background: #ffeaa7;
-    border-color: #fdcb6e;
-}
-
-.key.tashkeel:active,
-.key.tashkeel.active {
-    background: #fdcb6e;
-    color: #333;
-    border-color: #e17055;
-}
 
 /* Special keys styling */
 #backspace, #tab, #caps, #enter, #shift, #shift-right {
@@ -545,21 +564,6 @@ header p {
         font-size: 0.6rem;
     }
     
-    .key.tashkeel {
-        min-width: 20px;
-        min-height: 20px;
-        font-size: 0.7rem;
-    }
-    
-    .tashkeel-row {
-        margin-top: 4px;
-        padding-top: 4px;
-    }
-    
-    .tashkeel-label {
-        font-size: 0.6rem;
-        margin-right: 8px;
-    }
     
     .btn {
         padding: 5px 10px;

@@ -252,16 +252,11 @@ class ArabicTypingGame {
     }
     
     createRandomSentence() {
-        const sentenceLength = Math.floor(Math.random() * 3) + 3; // 3-5 words
+        const sentenceLength = Math.floor(Math.random() * 8) + 10; // 10-17 words for longer sentences
         const words = [];
         
         for (let i = 0; i < sentenceLength; i++) {
-            // 20% chance to add a number word
-            if (Math.random() < 0.2) {
-                words.push(this.generateNumberWord());
-            } else {
-                words.push(this.generateWord());
-            }
+            words.push(this.generateWord());
         }
         
         return words.join(' ');
@@ -575,14 +570,15 @@ class ArabicTypingGame {
     }
     
     toggleKeyboard() {
-        const isHidden = this.keyboardSection.style.display === 'none';
+        const keyboard = this.arabicKeyboard;
+        const isHidden = keyboard.style.display === 'none';
         
         if (isHidden) {
-            this.keyboardSection.style.display = 'block';
-            this.toggleKeyboardBtn.textContent = 'Hide Keyboard';
+            keyboard.style.display = 'flex';
+            this.toggleKeyboardBtn.textContent = 'Hide';
         } else {
-            this.keyboardSection.style.display = 'none';
-            this.toggleKeyboardBtn.textContent = 'Show Keyboard';
+            keyboard.style.display = 'none';
+            this.toggleKeyboardBtn.textContent = 'Show';
         }
     }
     

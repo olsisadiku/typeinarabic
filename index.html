@@ -58,13 +58,27 @@
                     dir="rtl"
                     title="Type the Arabic characters here. Each letter will turn green if correct or red if incorrect"
                 ></textarea>
+                
+                <div class="typing-controls">
+                    <button id="newSentence" class="btn btn-primary" title="Generate a new random Arabic sentence to practice">New Sentence</button>
+                    <button id="skipSentence" class="btn btn-secondary" title="Skip current sentence (breaks your streak)">Skip</button>
+                    <button id="reset" class="btn btn-secondary" title="Reset all progress including level and streak">Reset Stats</button>
+                </div>
             </div>
             
             <!-- Arabic Keyboard -->
             <div class="keyboard-section" id="keyboardSection">
-                <div class="keyboard-label">Arabic Keyboard Layout</div>
-                <div class="keyboard-instruction">
-                    💡 <strong>Pro Tip:</strong> Click the keys below to type Arabic characters directly
+                <div class="keyboard-header">
+                    <div class="keyboard-title">
+                        <div class="keyboard-label">Arabic Keyboard Layout</div>
+                        <div class="keyboard-instruction">
+                            💡 <strong>Pro Tip:</strong> Click the keys below to type Arabic characters directly
+                        </div>
+                    </div>
+                    <div class="keyboard-controls">
+                        <button id="toggleKeyboard" class="control-btn" title="Hide/Show keyboard">Hide</button>
+                        <button id="toggleArabicLetters" class="control-btn" title="Hide/Show Arabic letters on keys">ع/A</button>
+                    </div>
                 </div>
                 <div id="arabicKeyboard" class="arabic-keyboard">
                     <!-- First Row -->
@@ -145,18 +159,6 @@
                         <button class="key" id="ctrl-right">Ctrl</button>
                     </div>
 
-                    <!-- Tashkeel Row -->
-                    <div class="keyboard-row tashkeel-row">
-                        <span class="tashkeel-label">Tashkeel (Diacritics):</span>
-                        <button class="key tashkeel" data-arabic="َ">َ</button>
-                        <button class="key tashkeel" data-arabic="ً">ً</button>
-                        <button class="key tashkeel" data-arabic="ُ">ُ</button>
-                        <button class="key tashkeel" data-arabic="ٌ">ٌ</button>
-                        <button class="key tashkeel" data-arabic="ّ">ّ</button>
-                        <button class="key tashkeel" data-arabic="ْ">ْ</button>
-                        <button class="key tashkeel" data-arabic="ِ">ِ</button>
-                        <button class="key tashkeel" data-arabic="ٍ">ٍ</button>
-                    </div>
                 </div>
             </div>
             
@@ -165,13 +167,6 @@
                     <!-- Achievement notifications will appear here -->
                 </div>
                 
-                <div class="controls">
-                    <button id="newSentence" class="btn btn-primary" title="Generate a new random Arabic sentence to practice">New Sentence</button>
-                    <button id="skipSentence" class="btn btn-secondary" title="Skip current sentence (breaks your streak)">Skip</button>
-                    <button id="reset" class="btn btn-secondary" title="Reset all progress including level and streak">Reset Stats</button>
-                    <button id="toggleKeyboard" class="btn btn-secondary" title="Hide/Show keyboard">Hide Keyboard</button>
-                    <button id="toggleArabicLetters" class="btn btn-secondary" title="Hide/Show Arabic letters on keys">Hide Arabic</button>
-                </div>
             </div>
         </main>
     </div>
